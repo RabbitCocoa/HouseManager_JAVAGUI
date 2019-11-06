@@ -167,7 +167,6 @@ public abstract  class Query {
              * 给ps传参
              */
             JDBCUtil.handleParams(ps, params);
-            System.out.println(ps);
             rs = ps.executeQuery();
             return rs;
         } catch (Exception e) {

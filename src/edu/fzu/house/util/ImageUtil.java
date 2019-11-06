@@ -151,7 +151,7 @@ public class ImageUtil extends JFrame {
     public  String despathmsg;
     public ImageUtil()
     {
-        FrameUtil.Setting(this);
+       // FrameUtil.Setting(this);
         JPanel panel=new JPanel();
         JButton srcpath=new JButton("源路径");
         srcpath.addActionListener(e -> {

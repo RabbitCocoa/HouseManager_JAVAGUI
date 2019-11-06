@@ -21,7 +21,7 @@ public class RegisterFrame extends JFrame {
     public RectInputPanel pwd;
     public RectInputPanel spwd;
     public ButtonGroup group;
-    public  JLayeredPane layer_panel;
+    public  JLayeredPane layer_panel= new JLayeredPane();
     public int type;
     private Point mouse_position = new Point(0, 0);
     //鼠标拖住移动窗口
@@ -41,34 +41,10 @@ public class RegisterFrame extends JFrame {
     public RegisterFrame(LoginFrame frame)
     {
         parent=frame;
-        FrameUtil.Setting(this);
-        this.setUndecorated(true);//无标题栏
         setSize(new Dimension(250, 400));//窗口大小
-        AWTUtilities.setWindowShape(this, new RoundRectangle2D.Double(0.0d, 0.0d, this.getWidth(), this.getHeight(),
-                30, 30));//圆角窗口
-        this.setFocusable(true);
-        this.getContentPane().setBackground(LoginFrame.bkColor);
+        FrameUtil.Setting(this,layer_panel,70);
 
 
-        //监控鼠标 可以拖动
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mouse_position = e.getPoint();
-            }
-
-        });
-        this.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                Point now_position = e.getPoint();
-                int x = now_position.x - mouse_position.x;
-                int y = now_position.y - mouse_position.y;
-                MoveWindow(x, y);
-            }
-        });
-        //创造面板
-        layer_panel=new JLayeredPane();
         layer_panel.setPreferredSize(new Dimension(250,400));
 
         group=new ButtonGroup();

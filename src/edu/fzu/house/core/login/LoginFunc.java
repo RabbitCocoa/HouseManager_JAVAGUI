@@ -30,7 +30,6 @@ public class LoginFunc {
         String sql = "select utype from huser where uname=? and password=? ";
         Object type = query.queryValue(sql, new Object[]{name, password});
         int count = (type == null) ? -1 : (int) type;
-        System.out.println(count);
         return count;
     }
 
