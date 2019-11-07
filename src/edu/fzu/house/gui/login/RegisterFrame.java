@@ -1,19 +1,13 @@
 package edu.fzu.house.gui.login;
 
-import com.sun.awt.AWTUtilities;
 import edu.fzu.house.core.login.LoginFunc;
-import edu.fzu.house.gui.login.panel.InputButtonPanel;
+import edu.fzu.house.gui.login.panel.RoundButtonPanel;
 import edu.fzu.house.gui.login.panel.RectInputPanel;
 import edu.fzu.house.util.FrameUtil;
 import edu.fzu.house.util.ImageUtil;
-import org.w3c.dom.css.Rect;
-import sun.applet.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.RoundRectangle2D;
 
 public class RegisterFrame extends JFrame {
     private LoginFrame parent;
@@ -42,7 +36,7 @@ public class RegisterFrame extends JFrame {
     {
         parent=frame;
         setSize(new Dimension(250, 400));//窗口大小
-        FrameUtil.Setting(this,layer_panel,70);
+        FrameUtil.Setting(this,layer_panel,70,LoginFrame.bkColor);
 
 
         layer_panel.setPreferredSize(new Dimension(250,400));
@@ -56,18 +50,18 @@ public class RegisterFrame extends JFrame {
         bk_label.setBounds(150,300,112,178);
         layer_panel.add(bk_label,new Integer(200));
         //用户输入框
-        uname=RectInputPanel.addInput(new ImageIcon("src/image/Icon/uname.png"),"用户名",false,uname,new Rectangle(0,60,250,40));
+        uname=RectInputPanel.addInput(new ImageIcon("src/image/Icon/login/uname.png"),"用户名",false,uname,new Rectangle(0,60,250,40));
         layer_panel.add(uname,new Integer(300));
 
         //密码输入框
 
-        pwd=RectInputPanel.addInput(new ImageIcon("src/image/Icon/pwd.png"),"密码",true,uname,new Rectangle(0,120,250,40));
+        pwd=RectInputPanel.addInput(new ImageIcon("src/image/Icon/login/pwd.png"),"密码",true,uname,new Rectangle(0,120,250,40));
         pwd.setXY(125,-5);
         layer_panel.add(pwd);
 
 
         //确认密码
-        spwd=RectInputPanel.addInput(new ImageIcon("src/image/Icon/pwd.png"),"确认密码",true,uname,new Rectangle(0,180,250,40));
+        spwd=RectInputPanel.addInput(new ImageIcon("src/image/Icon/login/pwd.png"),"确认密码",true,uname,new Rectangle(0,180,250,40));
         spwd.setXY(125,-5);
         layer_panel.add(spwd);
 
@@ -92,14 +86,15 @@ public class RegisterFrame extends JFrame {
         layer_panel.add(radio,new Integer(100));
 
         /*注册按钮*/
-        ImageIcon login_icon=new ImageIcon("src/image/Icon/register.png");
+        ImageIcon login_icon=new ImageIcon("src/image/Icon/login/register.png");
         login_icon= ImageUtil.StretchPngImage(login_icon,25,25);
 
-        InputButtonPanel button=new InputButtonPanel(login_icon,180,45,"注册~",new Color(102,126,175),
+        RoundButtonPanel button=new RoundButtonPanel(login_icon,180,45,"注册~",new Color(102,126,175),
                 new Color(219, 237, 255),12);
         button.setBackground(LoginFrame.bkColor);
         button.setBounds(32,260,180,45);
         button.button.addActionListener(e->{
+
             int count= LoginFunc.Register(uname.getText(),pwd.getText(),spwd.getText(),type);
             if(count==1) {
                 JOptionPane.showMessageDialog(null, "注册成功");
@@ -117,10 +112,10 @@ public class RegisterFrame extends JFrame {
 
         /*返回按钮*/
 
-        login_icon=new ImageIcon("src/image/Icon/return.png");
+        login_icon=new ImageIcon("src/image/Icon/login/return.png");
         login_icon= ImageUtil.StretchPngImage(login_icon,25,25);
 
-         button=new InputButtonPanel(login_icon,180,45,"返回~",new Color(102,126,175),
+         button=new RoundButtonPanel(login_icon,180,45,"返回~",new Color(102,126,175),
                 new Color(219, 237, 255),12);
         button.setBackground(LoginFrame.bkColor);
         button.setBounds(32,310,180,45);

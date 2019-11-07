@@ -8,12 +8,12 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
-public class InputButtonPanel extends JPanel  {
+public class RoundButtonPanel extends JPanel  {
     public JButton button;
     public Color bk;
     public Color font;
     public  BufferedImage bi;
-    public InputButtonPanel(ImageIcon icon,int width, int height, String text, Color bk, Color font, int size)
+    public RoundButtonPanel(ImageIcon icon, int width, int height, String text, Color bk, Color font, int size)
     {
         this.setSize(width,height);
         this.setLayout(null); //空布局
@@ -120,12 +120,12 @@ public class InputButtonPanel extends JPanel  {
 
         ImageIcon icon=new ImageIcon("src/image/Icon/pwd.png");
         icon = ImageUtil.StretchPngImage(icon, 30, 30);
-        InputButtonPanel button=new InputButtonPanel(icon,200,60,"Go",Color.blue,Color.pink,14);
+        RoundButtonPanel button=new RoundButtonPanel(icon,200,60,"Go",Color.blue,Color.pink,14);
         button.setBounds(0,0,250,40);
 
         ImageIcon login_icon=new ImageIcon("src/image/Icon/login.png");
         login_icon=ImageUtil.StretchPngImage(login_icon,30,30);
-        InputButtonPanel button2=new InputButtonPanel(null,220,40,"GO~~",new Color(102,126,175),
+        RoundButtonPanel button2=new RoundButtonPanel(null,220,40,"GO~~",new Color(102,126,175),
                 new Color(219, 237, 255),12);
         button.setBounds(30,300,220,40);
         frame.add(button);

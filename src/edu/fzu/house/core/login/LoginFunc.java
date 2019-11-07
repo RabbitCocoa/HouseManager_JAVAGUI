@@ -4,6 +4,8 @@ package edu.fzu.house.core.login;
 import com.sorm.core.Query;
 import com.sorm.po.Hsuser;
 import com.sorm.po.Huser;
+import edu.fzu.house.util.IOUtil;
+import edu.fzu.house.util.ImageUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +21,7 @@ import java.util.List;
 public class LoginFunc {
     public static String pwddes = "src/edu/fzu/house/log/rem.log";
     public static String unames = "src/edu/fzu/house/log/unames.log";
-    public static MysqlQuery query = new MysqlQuery();
+
 
     public static String uname; //记住的账号
     public static String pwd;  //记住的密码
@@ -28,7 +30,7 @@ public class LoginFunc {
     //登陆验证功能 返回type类型
     public static int Login(String name, String password) {
         String sql = "select utype from huser where uname=? and password=? ";
-        Object type = query.queryValue(sql, new Object[]{name, password});
+        Object type = MysqlQuery.query.queryValue(sql, new Object[]{name, password});
         int count = (type == null) ? -1 : (int) type;
         return count;
     }
@@ -116,10 +118,21 @@ public class LoginFunc {
         if(pwd.equals(rpwd))
         {
             Huser user=new Huser();
+
             user.setUname(name);
             user.setPassword(pwd);
             user.setUtype(type);
-            return query.insert(user);
+
+            int count=MysqlQuery.query.insert(user);
+            if(count==1)
+            {
+                Hsuser suser=new Hsuser();
+                suser.setUname(user.getUname());
+                suser.setLogintime(new Timestamp(System.currentTimeMillis()));
+                suser.setPhoto(IOUtil.readStrImage("src/image/bkimage/default.jpg&").get(0));
+                count=MysqlQuery.query.insert(suser);
+            }
+            return count;
         }
         else{
             JOptionPane.showMessageDialog(null,"请确认两次密码是否一致");
@@ -130,12 +143,10 @@ public class LoginFunc {
     //读取数据库中的二进制图片
     public static byte[] readImage(String uname)
     {
-        InputStream r=null;
-        ByteArrayOutputStream bos=null;
 
-            String sql="select photo from hsuser where uname=? ";
+        String sql="select photo from hsuser where uname=? ";
 
-            return (byte[])query.queryValue(sql,new Object[]{uname});
+        return (byte[])MysqlQuery.query.queryValue(sql,new Object[]{uname});
 
 
     }

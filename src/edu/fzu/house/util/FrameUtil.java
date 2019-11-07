@@ -21,8 +21,9 @@ public class FrameUtil {
     /*@frame 一般传自己
          @Comment 传添加关闭按钮的容器
          @posx     传右移的位置
+         @Color 背景色
        */
-    public static void Setting(JFrame frame,JComponent panel,int posx) {
+    public static void Setting(JFrame frame,JComponent panel,int posx,Color c) {
         //默认关闭
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //默认位置
@@ -32,7 +33,7 @@ public class FrameUtil {
         AWTUtilities.setWindowShape(frame, new RoundRectangle2D.Double(0.0d, 0.0d, frame.getWidth(), frame.getHeight(),
                 30, 30));//圆角窗口
         //默认背景颜色
-        frame.getContentPane().setBackground(LoginFrame.bkColor);
+        frame.getContentPane().setBackground(c);
         //默认焦点
         frame.setFocusable(true);
 
@@ -57,32 +58,32 @@ public class FrameUtil {
 
         //默认关闭按钮 可选择位置
         /*关闭按钮*/
-        ImageIcon close_image = new ImageIcon("src/image/Icon/close.png");
+        ImageIcon close_image = new ImageIcon("src/image/Icon/login/close.png");
         close_image = ImageUtil.StretchPngImage(close_image, 40, 40);
         JButton close_button = new JButton(close_image);
         close_button.setBorderPainted(false); //去除边框
-        close_button.setBackground(LoginFrame.bkColor); //透明
+        close_button.setBackground(c); //透明
         close_button.setFocusPainted(false); //去焦点
         //设置颜色事件
         close_button.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                close_button.setBackground(LoginFrame.bkColor.darker());
+                close_button.setBackground(c.darker());
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                close_button.setBackground(LoginFrame.bkColor);
+                close_button.setBackground(c);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                close_button.setBackground(LoginFrame.bkColor.darker());
+                close_button.setBackground(c.darker());
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                close_button.setBackground(LoginFrame.bkColor);
+                close_button.setBackground(c);
             }
         });
         //关闭事件
@@ -91,7 +92,6 @@ public class FrameUtil {
         });
         //按钮大小
         close_button.setBounds(posx, 5, 40, 40);
-
         panel.add(close_button);
     }
 }

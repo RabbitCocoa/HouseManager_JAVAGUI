@@ -1,15 +1,13 @@
 package com.sorm.core;
 
+import com.mysql.cj.jdbc.Clob;
 import com.sorm.bean.ColumnInfo;
 import com.sorm.bean.TableInfo;
 import com.sorm.util.JDBCUtil;
 import com.sorm.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,7 +159,6 @@ public abstract  class Query {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-
             ps = con.prepareStatement(sql);
             /**
              * 给ps传参
@@ -173,6 +170,9 @@ public abstract  class Query {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
+        }
+        finally {
+            DBManager.Close(con);
         }
     }
 
@@ -195,7 +195,9 @@ public abstract  class Query {
                     Object value = rs.getObject(i + 1);
                     //反射调用set方法
                     if (value != null)
-                        ReflectionUtil.invokeSet(name, rowObj, value);
+                    {
+                        ReflectionUtil.invokeSet(name,rowObj,value);
+                    }
                 }
                 result.add(rowObj);
             }
@@ -240,7 +242,7 @@ public abstract  class Query {
     /**
      * 分页查询
      */
-    public abstract Object queryPagenate(int pagenum,int size);
+    public abstract List<Object> queryPagenate(String sql, Class clazz,Object[] params,int pagenum,int size);
 
 
 }

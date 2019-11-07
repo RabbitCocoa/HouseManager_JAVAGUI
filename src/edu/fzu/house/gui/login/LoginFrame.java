@@ -1,9 +1,8 @@
 package edu.fzu.house.gui.login;
 
-import com.sorm.core.TableContext;
-import com.sun.awt.AWTUtilities;
 import edu.fzu.house.core.login.LoginFunc;
-import edu.fzu.house.gui.login.panel.InputButtonPanel;
+import edu.fzu.house.gui.Manager.ManagerFrame;
+import edu.fzu.house.gui.login.panel.RoundButtonPanel;
 import edu.fzu.house.gui.login.panel.RectInputPanel;
 import edu.fzu.house.util.FrameUtil;
 import edu.fzu.house.util.ImageUtil;
@@ -11,7 +10,6 @@ import edu.fzu.house.util.ImageUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
 
 public class LoginFrame extends JFrame {
     public JLayeredPane layer_panel = new JLayeredPane();;//分层面板
@@ -47,7 +45,7 @@ public class LoginFrame extends JFrame {
 
 
         /*用户框*/
-        ImageIcon icon = new ImageIcon("src/image/Icon/uname.png");
+        ImageIcon icon = new ImageIcon("src/image/Icon/login/uname.png");
         Rectangle r = new Rectangle(0, 180, 250, 40);
         name = RectInputPanel.addInput(icon, "请输入用户名", false, name, r);
         if (LoginFunc.uname != null && !LoginFunc.uname.equals("")) {
@@ -62,7 +60,7 @@ public class LoginFrame extends JFrame {
             public void focusLost(FocusEvent e) {
                 byte[] image = LoginFunc.readImage(name.getText());
                 if (image == null) {
-                    label_photo.setIcon(new ImageIcon("src/image/bkimage/default.jpg"));
+                    label_photo.setIcon(ImageUtil.CutCircleImage(new ImageIcon("src/image/bkimage/default.jpg"),80));
                     return;
                 }
 
@@ -71,9 +69,10 @@ public class LoginFrame extends JFrame {
                 label_photo.setIcon(icon);
             }
         });
+
         layer_panel.add(name, new Integer(300));
         /*密码框*/
-        icon = new ImageIcon("src/image/Icon/pwd.png");
+        icon = new ImageIcon("src/image/Icon/login/pwd.png");
         pwd = RectInputPanel.addInput(icon, "请输入密码", true, pwd, new Rectangle(0, 240, 250, 40));
         if (LoginFunc.pwd != null && !LoginFunc.pwd.equals("")) {
             pwd.getPassword().setText(LoginFunc.pwd);
@@ -135,10 +134,10 @@ public class LoginFrame extends JFrame {
         layer_panel.add(label, new Integer(300));
 
         //登录按钮
-        ImageIcon login_icon = new ImageIcon("src/image/Icon/login.png");
+        ImageIcon login_icon = new ImageIcon("src/image/Icon/login/login.png");
         login_icon = ImageUtil.StretchPngImage(login_icon, 25, 25);
 
-        InputButtonPanel button = new InputButtonPanel(login_icon, 200, 45, "GO~~", new Color(102, 126, 175),
+        RoundButtonPanel button = new RoundButtonPanel(login_icon, 200, 45, "GO~~", new Color(102, 126, 175),
                 new Color(219, 237, 255), 12);
         button.setBackground(bkColor);
         button.setBounds(30, 320, 200, 45);
@@ -165,8 +164,9 @@ public class LoginFrame extends JFrame {
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), true);
                     else
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), false);
-                    System.out.println();
-                    System.out.println();
+                    ManagerFrame New_m=new ManagerFrame(name.getText());
+                    this.setVisible(false);
+                    New_m.setVisible(true);
                 }
                 break;
                 default:
@@ -181,10 +181,11 @@ public class LoginFrame extends JFrame {
 
         /*头像 当输入框失去焦点时更新*/
         ImageIcon photo;
-        if(name==null||name.getText().equals(""))
+
+        if(LoginFunc.uname==null||LoginFunc.uname.equals(""))
             photo= new ImageIcon(defaultURL);
         else
-            photo= new ImageIcon(LoginFunc.readImage(name.getText()));
+            photo= new ImageIcon(LoginFunc.readImage(LoginFunc.uname));
         photo = ImageUtil.CutCircleImage(photo, 80);
         label_photo = new JLabel(photo);
         label_photo.setBounds(50, 80, 80, 80);
@@ -200,7 +201,7 @@ public class LoginFrame extends JFrame {
           @Comment 传添加关闭按钮的容器
           @posx     传右移的位置
          */
-        FrameUtil.Setting(this,layer_panel,70); //一些通用设置
+        FrameUtil.Setting(this,layer_panel,70,bkColor); //一些通用设置
 
 
 
