@@ -27,7 +27,7 @@ public class ManagerFrame extends JFrame {
     /*个人信息*/
     public static Hsuser user;
     private  String date;
-
+    private static int deg=2;
     public RoundButtonPanel addButton(int x,int y,String src,Color bk,Color font,JComponent panel,String text)
     {
 
@@ -71,7 +71,7 @@ public class ManagerFrame extends JFrame {
         setting.button.addActionListener(e->{
             SettingPanel set=new SettingPanel();
             set.setBounds(180,50,820,950);
-            layer_panel.add(set);
+            layer_panel.add(set,new Integer(deg++));
         });
 
         /*用户操作按钮*/
@@ -79,7 +79,7 @@ public class ManagerFrame extends JFrame {
         user.button.addActionListener(e->{
             userPanel set=new userPanel();
             set.setBounds(180,50,820,950);
-            layer_panel.add(set);
+            layer_panel.add(set,new Integer(deg++));
         });
 
         /*请求审核*/
@@ -87,7 +87,7 @@ public class ManagerFrame extends JFrame {
         examine.button.addActionListener(e->{
             msgPanel set=new msgPanel();
             set.setBounds(180,50,820,950);
-            layer_panel.add(set);
+            layer_panel.add(set,new Integer(deg++));
         });
 
         /*投诉消息*/
@@ -95,7 +95,7 @@ public class ManagerFrame extends JFrame {
         notice.button.addActionListener(e->{
             noticePanel set=new noticePanel();
             set.setBounds(180,50,820,950);
-            layer_panel.add(set);
+            layer_panel.add(set,new Integer(deg++));
         });
 
         left.add(id_label);

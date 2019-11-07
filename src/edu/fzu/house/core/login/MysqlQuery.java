@@ -17,7 +17,7 @@ public class MysqlQuery extends Query {
         Object[] newparams=new Object[params.length+2];
         for(int i=0;i<params.length;i++)
             newparams[i]=params[i];
-        newparams[params.length]=pagenum*10;
+        newparams[params.length]=pagenum*size;
         newparams[params.length+1]=size;
 
         return  queryRows(sql,clazz,newparams);
