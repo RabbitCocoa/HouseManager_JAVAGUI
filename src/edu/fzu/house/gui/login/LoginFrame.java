@@ -12,10 +12,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class LoginFrame extends JFrame {
-    public JLayeredPane layer_panel = new JLayeredPane();;//分层面板
+    public JLayeredPane layer_panel = new JLayeredPane();
+    ;//分层面板
     private RectInputPanel name;
     private RectInputPanel pwd;
-    private String defaultURL="src/image/bkimage/default.jpg";
+    private String defaultURL = "src/image/bkimage/default.jpg";
 
     public static Color bkColor = new Color(143, 163, 204);
     private RegisterFrame frame;
@@ -32,7 +33,7 @@ public class LoginFrame extends JFrame {
 
         //初始化分层面板 设置大小
 
-        layer_panel.setPreferredSize(new Dimension(250,400));
+        layer_panel.setPreferredSize(new Dimension(250, 400));
 
 
 
@@ -60,7 +61,7 @@ public class LoginFrame extends JFrame {
             public void focusLost(FocusEvent e) {
                 byte[] image = LoginFunc.readImage(name.getText());
                 if (image == null) {
-                    label_photo.setIcon(ImageUtil.CutCircleImage(new ImageIcon("src/image/bkimage/default.jpg"),80));
+                    label_photo.setIcon(ImageUtil.CutCircleImage(new ImageIcon("src/image/bkimage/default.jpg"), 80));
                     return;
                 }
 
@@ -164,7 +165,7 @@ public class LoginFrame extends JFrame {
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), true);
                     else
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), false);
-                    ManagerFrame New_m=new ManagerFrame(name.getText());
+                    ManagerFrame New_m = new ManagerFrame(name.getText());
                     this.setVisible(false);
                     New_m.setVisible(true);
                 }
@@ -182,10 +183,10 @@ public class LoginFrame extends JFrame {
         /*头像 当输入框失去焦点时更新*/
         ImageIcon photo;
 
-        if(LoginFunc.uname==null||LoginFunc.uname.equals(""))
-            photo= new ImageIcon(defaultURL);
+        if (LoginFunc.uname == null || LoginFunc.uname.equals(""))
+            photo = new ImageIcon(defaultURL);
         else
-            photo= new ImageIcon(LoginFunc.readImage(LoginFunc.uname));
+            photo = new ImageIcon(LoginFunc.readImage(LoginFunc.uname));
         photo = ImageUtil.CutCircleImage(photo, 80);
         label_photo = new JLabel(photo);
         label_photo.setBounds(50, 80, 80, 80);
@@ -193,17 +194,13 @@ public class LoginFrame extends JFrame {
 
     }
 
-
-
     public LoginFrame() {
         setSize(new Dimension(250, 400));//窗口大小
         /*@frame 一般传自己
           @Comment 传添加关闭按钮的容器
           @posx     传右移的位置
          */
-        FrameUtil.Setting(this,layer_panel,70,bkColor); //一些通用设置
-
-
+        FrameUtil.Setting(this, layer_panel, 70, bkColor); //一些通用设置
 
         //监控键盘 按下ESC退出
         this.addKeyListener(new KeyAdapter() {
@@ -216,7 +213,6 @@ public class LoginFrame extends JFrame {
         });
 
         InitBackground();//初始化布局
-
 
         this.add(layer_panel, BorderLayout.CENTER);
 

@@ -33,13 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 public class SettingPanel extends modelPanel {
-    public static String Paramsql = "select hid,uname,htype,hname,photo,hstate,addressid,hprice from house where hstate=? order by hprice";
-    public static int apage = 1; //记录当前页被选中
+    public  String Paramsql =  "select hid,hname,htype,photo,addressid,hprice,uname,hstate from house where hstate=? order by hprice";
+
     public JLayeredPane layer_panel=new JLayeredPane();
 
-    public static  Color color1=new Color(0xF1F1F1); //单行文本背景色
-    public static  Color color2=Color.white;    //双行文本背景
-    public static Color pagecolor=new Color(0xE8E8EB); //背景颜色
+    public static  Color color1=new Color(0xC9DEFB); //单行文本背景色
+    public static  Color color2=new Color(246,250,255);  //双行文本背景
+    public static Color pagecolor=new Color(0xFFFFFF); //背景颜色
 
     //生成一栏个人信息项
     public JPanel generateSetting(String text, String fieldName, Color c, Color font, Confirm con) {
@@ -121,7 +121,7 @@ public class SettingPanel extends modelPanel {
         layer_panel.add(msg1,new Integer(100));
 
         //开始创造用户信息表格 自动实现了修改 确定功能
-        Color c= color2;
+        Color c= new Color(0xD5F3F5);
         JPanel panel = generateSetting("用户名:", "sname", c,  new Color(0x000000), null);
         panel.setBounds(40, 80, 500, 40);
         layer_panel.add(panel,new Integer(100));
@@ -223,11 +223,13 @@ public class SettingPanel extends modelPanel {
         layer_panel.add(msgPanel,new Integer(100));*/
 
     //生成数据库表格
+
         DataTablePanel datetable=new DataTablePanel(Paramsql,House.class ,new Object[]{0},
                 new String[]{"序列号","房名","房型","照片","地址","售价","房主"},7, new HouseColumImpl(),
                 new Rectangle(10,320,800,400 ),layer_panel);
         datetable.setColor1(color1);
         datetable.setColor2(color2);
+        datetable.setPagecolor(pagecolor);
         datetable.setImageID(3);
         datetable.setSize(8);
         datetable.generateTable();
@@ -242,20 +244,21 @@ public class SettingPanel extends modelPanel {
     }
 
     public static void main(String[] args) {
-      /* for(int i=0;i<1000;i++)
+       for(int i=0;i<1000;i++)
         {
             House house=new House();
-            house.setHid(String.valueOf((int)(Math.random()*9999-1000+1000)));
+            house.setHid(ManagerFunc.generateSerialNum(8));
             house.setHname("火山居"+i);
             house.setHtype((int)(Math.random()*5+1));
-            Clob clob=new com.mysql.cj.jdbc.Clob("src/image/Icon/Manager/msg.png&src/image/Icon/Manager/user.png&",null);
+            house.setHarea((int)(Math.random()*451+50));
+            //Clob clob=new com.mysql.cj.jdbc.Clob("src/image/Icon/Manager/msg.png&src/image/Icon/Manager/user.png&",null);
 
             house.setHstate(0);
-           // house.setPhoto(clob);
+            house.setPhoto("src/image/house/house1.jpg&");
             house.setAddressid((int)(Math.random()*3+1));
             house.setHprice((int)(Math.random()*9999-1000+1000));
             house.setUname("xg108575");
             MysqlQuery.query.insert(house);
-        }*/
+        }
     }
 }
