@@ -6,10 +6,15 @@ import edu.fzu.house.core.confirmInterface.Confirm;
 import edu.fzu.house.core.login.MysqlQuery;
 import edu.fzu.house.util.FrameUtil;
 import edu.fzu.house.util.IOUtil;
+import edu.fzu.house.util.ImageUtil;
 import edu.fzu.house.util.MathUtil;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.color.CMMException;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +55,7 @@ public class ManagerFunc  {
 
     }
 
-    //生成一条模板正文
+    //生成一条模板正文 id 接受者id  hid 房间号
     public static String generateText(String id,String hid,boolean fail)
     {
         StringBuilder builder=new StringBuilder();
@@ -80,7 +85,24 @@ public class ManagerFunc  {
             return true;
         return con.confirm(msg);
     }
+    //画五星好评
+    public static ImageIcon DrawStar(int num)
+    {
+        ImageIcon icon=new ImageIcon("src/image/Icon/Manager/star.png");
 
+        BufferedImage img=new BufferedImage(num*20,20,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g;
+        g = img.createGraphics();
+        img = g.getDeviceConfiguration().createCompatibleImage(num*20, 20, Transparency.TRANSLUCENT);
+        g.dispose();
+        g = img.createGraphics();
+
+        icon= ImageUtil.StretchPngImage(icon,20,20);
+        for(int i=0;i<num;i++)
+        g.drawImage(icon.getImage(),i*20,0,null);
+
+        return new ImageIcon(img);
+    }
     //根据房间id返回照片数据
     public static List<byte[]> getImage(String hID)
     {
@@ -95,6 +117,13 @@ public class ManagerFunc  {
         String sql="select * from haddress where addressid=?";
         Haddress address=(Haddress)MysqlQuery.query.queryRows(sql,Haddress.class,new Object[]{id}).get(0);
         return address.getProvince()+address.getTown();
+
+    }
+    public static String getAddress2(int id)
+    {
+        String sql="select * from haddress where addressid=?";
+        Haddress address=(Haddress)MysqlQuery.query.queryRows(sql,Haddress.class,new Object[]{id}).get(0);
+        return address.getProvince()+address.getTown()+address.getCounty()+address.getArea();
 
     }
 

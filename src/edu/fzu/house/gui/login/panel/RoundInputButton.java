@@ -15,15 +15,21 @@ import java.awt.image.BufferedImage;
 public class RoundInputButton extends JPanel{
     public JButton button=new JButton();
     public JTextField file;
+    public ImageIcon icon;
 
-
-    public RoundInputButton(ImageIcon icon, Rectangle r, String text, Color btcolor, Color Input,Color line, Font font)
+    public RoundInputButton(ImageIcon icon, Rectangle r, String text, Color btcolor,
+                            Color Input,Color line, Font font,boolean right)
     {
+        this.icon=icon;
         this.setBounds(r);
         this.setLayout(null); //空布局
         this.setBounds(r.x,r.y,r.width,r.height);
         int width=r.width;
         int height=r.height;
+
+        //输入框的位置
+        int input_x;
+
         //画圆角矩形 作为外边框
         BufferedImage bi=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2=bi.createGraphics();
@@ -36,22 +42,29 @@ public class RoundInputButton extends JPanel{
 
         //填充圆角矩形
         g2.setColor(btcolor);
-        g2.fill(new RoundRectangle2D.Float(0,0,width,height-1,30,30));
 
+        g2.fill(new RoundRectangle2D.Float(0,0,width,height-1,30,30));
         g2.setColor(Input);
-        g2.fill(new RoundRectangle2D.Float(0,0,width/5,height-1,30,30));
+        if(!right)
+            input_x=0;
+        else
+            input_x=width-width/5;
+
+        g2.fill(new RoundRectangle2D.Float(input_x,0,width/5,height-1,30,30));
+
+
         JLabel  label=new JLabel(new ImageIcon(bi));
         label.setBounds(0,0,width,height);
         //画边线
         g2.setColor(line);
         g2.draw(new RoundRectangle2D.Float(0,0,width,height-1,30,30));
-        g2.draw(new RoundRectangle2D.Float(0,0,width/5,height-1,30,30));
+        g2.draw(new RoundRectangle2D.Float(input_x,0,width/5,height-1,30,30));
 
         button.setIcon(icon);
         button.setBorderPainted(false); //去除边框
         button.setContentAreaFilled(false); //透明
         button.setFocusPainted(false); //去焦点
-        button.setBounds(0,0,width/5,height);
+        button.setBounds(input_x,0,width/5,height);
       //  button.setForeground(font);
         button.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -85,7 +98,10 @@ public class RoundInputButton extends JPanel{
          });
         file.setFont(new Font(Font.SERIF,Font.PLAIN,12));
         file.setForeground(Color.gray);
-        file.setBounds(width/4,0,width-width/3,height);
+        if(!right)
+            file.setBounds(width/4,0,width-width/3,height);
+        else
+            file.setBounds(10,0,width-width/3,height);
         file.setOpaque(false);
         file.setBorder(null);
 
@@ -110,7 +126,7 @@ public class RoundInputButton extends JPanel{
 
         RoundInputButton button=new RoundInputButton
                 (icon,new Rectangle(20,20,200,40),"", Color.white,
-                        Color.gray, Color.gray,new Font(Font.SERIF,Font.PLAIN,16));
+                        Color.gray, Color.gray,new Font(Font.SERIF,Font.PLAIN,16),true);
 
 
 

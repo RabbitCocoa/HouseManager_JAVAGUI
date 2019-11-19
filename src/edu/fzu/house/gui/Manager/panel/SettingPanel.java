@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SettingPanel extends modelPanel {
-    public  String Paramsql =  "select hid,hname,htype,photo,addressid,hprice,uname,hstate from house where hstate=? order by hprice";
+    public  String Paramsql =  "select hid,hname,htype,photo,addressid,hprice,uname from house where hstate=? order by hprice";
 
     public JLayeredPane layer_panel=new JLayeredPane();
 
@@ -244,7 +244,7 @@ public class SettingPanel extends modelPanel {
     }
 
     public static void main(String[] args) {
-       for(int i=0;i<1000;i++)
+/*      for(int i=0;i<1000;i++)
         {
             House house=new House();
             house.setHid(ManagerFunc.generateSerialNum(8));
@@ -252,13 +252,13 @@ public class SettingPanel extends modelPanel {
             house.setHtype((int)(Math.random()*5+1));
             house.setHarea((int)(Math.random()*451+50));
             //Clob clob=new com.mysql.cj.jdbc.Clob("src/image/Icon/Manager/msg.png&src/image/Icon/Manager/user.png&",null);
-
+            house.setHinformation(ManagerFunc.generateSerialNum(8));
             house.setHstate(0);
-            house.setPhoto("src/image/house/house1.jpg&");
+            house.setPhoto("src/image/house/house1.jpg&src/image/house/test.jpg&");
             house.setAddressid((int)(Math.random()*3+1));
             house.setHprice((int)(Math.random()*9999-1000+1000));
-            house.setUname("xg108575");
+            house.setUname("admin");
             MysqlQuery.query.insert(house);
-        }
+        }*/
     }
 }

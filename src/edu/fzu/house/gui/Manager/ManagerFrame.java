@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ManagerFrame extends JFrame {
-    private JLayeredPane layer_panel = new JLayeredPane();
+    private  JLayeredPane layer_panel = new JLayeredPane();
     public static Color bkcolor = new Color(133, 153, 190);
     /*显示信息*/
     public static JLabel id_label;
@@ -27,7 +27,7 @@ public class ManagerFrame extends JFrame {
     /*个人信息*/
     public static Hsuser user;
     private String date;
-    private static int deg = 2;
+    public static int deg = 2;
 
     public RoundButtonPanel addButton(int x, int y, String src, Color bk, Color font, JComponent panel, String text) {
 

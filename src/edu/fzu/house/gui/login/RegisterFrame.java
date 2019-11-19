@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RegisterFrame extends JFrame {
+
     private LoginFrame parent;
     public RectInputPanel uname;
     public RectInputPanel pwd;
@@ -50,7 +51,8 @@ public class RegisterFrame extends JFrame {
         bk_label.setBounds(150,300,112,178);
         layer_panel.add(bk_label,new Integer(200));
         //用户输入框
-        uname=RectInputPanel.addInput(new ImageIcon("src/image/Icon/login/uname.png"),"用户名",false,uname,new Rectangle(0,60,250,40));
+        uname=RectInputPanel.addInput(new ImageIcon("src/image/Icon/login/uname.png"),
+                "用户名",false,uname,new Rectangle(0,60,250,40));
         layer_panel.add(uname,new Integer(300));
 
         //密码输入框

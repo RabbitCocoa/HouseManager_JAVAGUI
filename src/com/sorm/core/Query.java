@@ -236,6 +236,8 @@ public abstract  class Query {
      */
     public Number queryNumber(String sql, Object[] params) {
         // TODO Auto-generated method stub
+        if(queryValue(sql, params)==null)
+            return 0;
         return (Number)queryValue(sql, params);
     }
 

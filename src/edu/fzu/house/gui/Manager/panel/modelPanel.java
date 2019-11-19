@@ -7,7 +7,7 @@ public class modelPanel extends JPanel {
     public modelPanel()
     {
         super();
-        this.setSize(820,740);
+        this.setSize(820,750);
         this.setBackground(Color.white);
         this.setLayout(null);
     }

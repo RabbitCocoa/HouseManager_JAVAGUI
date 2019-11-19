@@ -26,8 +26,8 @@ public class DataTablePanel {
 
     private String sql;
     private Class  clz;
-    private int num=301; //用来配合覆盖翻页
-    private int num2=201;
+    public static int num=301; //用来配合覆盖翻页
+    public static int num2=201;
     private Object[] params;
     private String[] titles;
     private int column;
@@ -128,6 +128,7 @@ public class DataTablePanel {
         int hei = (int)((height) /(size+1));
         panel.setSize((int)width, (int)height);
         panel.setLayout(null);
+
         HashMap<Integer, List<Object>> map = ManagerFunc.getMap(sql,clz,params,page,size,co);
         /*画第一列*/
         for (int i = 0; i < column; i++) {
@@ -226,8 +227,9 @@ public class DataTablePanel {
             panel.add(label);
         }
 
-        int totalsize=getTotalPage()/size;
-        totalPage=map.size()%size==0?(totalsize):(totalsize+1);
+        int totalsize=getTotalPage();
+        totalPage=totalsize%size==0?(totalsize/size):(totalsize/size+1);
+
 
 
         if(map==null||map.size()<=0)

@@ -2,6 +2,7 @@ package edu.fzu.house.gui.login;
 
 import edu.fzu.house.core.login.LoginFunc;
 import edu.fzu.house.gui.Manager.ManagerFrame;
+import edu.fzu.house.gui.Seller.SellerFrame;
 import edu.fzu.house.gui.login.panel.RoundButtonPanel;
 import edu.fzu.house.gui.login.panel.RectInputPanel;
 import edu.fzu.house.util.FrameUtil;
@@ -157,7 +158,7 @@ public class LoginFrame extends JFrame {
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), true);
                     else
                         LoginFunc.RemberPassword(name.getText(), pwd.getText(), false);
-                    System.out.println();
+                    SellerFrame New_s = new SellerFrame(name.getText());
                 }
                 break;
                 case 2: {

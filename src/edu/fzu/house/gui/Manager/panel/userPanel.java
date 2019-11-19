@@ -28,9 +28,9 @@ public class userPanel extends modelPanel {
 
 
         sql = "select distinct huser.uname,sname,photo,ssex,logintime,sphone " +
-                " from hsuser join huser on huser.uname=hsuser.uname where sname like ? and utype=? order by logintime";
+                " from hsuser join huser on huser.uname=hsuser.uname where (sname like ? or sname like ?) and utype=? order by logintime";
 
-        table = new DataTablePanel(sql, Hsuser.class, new Object[]{"%",1}, new String[]{"账号", "用户名", "头像",
+        table = new DataTablePanel(sql, Hsuser.class, new Object[]{"%","%",1}, new String[]{"账号", "用户名", "头像",
                 "性别", "注册时间", "电话号码"},
                 6,
                 new UserColumnImpl(), new Rectangle(30, 50, 650, 650), layer_panel);
@@ -60,9 +60,9 @@ public class userPanel extends modelPanel {
             String role= roles.getItemAt(roles.getSelectedIndex());
             Object[] obj=table.getParams();
             if(role.equals("卖家"))
-                obj[1]=1;
+                obj[2]=1;
             else
-                obj[1]=0;
+                obj[2]=0;
             table.generateTable();
         });
         roles.setEditable(false);
@@ -74,11 +74,12 @@ public class userPanel extends modelPanel {
         ImageIcon icon=new ImageIcon("src/image/Icon/Manager/search.png");
         icon = ImageUtil.StretchPngImage(icon, 20, 20);
         RoundInputButton rb=new RoundInputButton(icon,new Rectangle(500,10,250,30),"用户名"
-        ,color1,color1,Color.LIGHT_GRAY,new Font(Font.SERIF,Font.PLAIN,12));
+        ,color1,color1,Color.LIGHT_GRAY,new Font(Font.SERIF,Font.PLAIN,12),false);
         rb.setBackground(Color.white);
         rb.button.addActionListener(e->{
             Object[] obj=table.getParams();
             obj[0]=rb.file.getText()+"%";
+            obj[1]="%"+rb.file.getText()+"%";
             table.generateTable();
         });
         layer_panel.add(rb);

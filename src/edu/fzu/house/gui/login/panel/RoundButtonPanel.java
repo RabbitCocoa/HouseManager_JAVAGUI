@@ -19,7 +19,7 @@ public class RoundButtonPanel extends JPanel  {
         this.setLayout(null); //空布局
         this.bk=bk;
         this.font=font;
-
+        this.setOpaque(false);
         //画圆角矩形 作为外边框
         bi=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2=bi.createGraphics();
