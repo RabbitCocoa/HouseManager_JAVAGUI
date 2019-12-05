@@ -1,14 +1,13 @@
-package edu.fzu.house.gui.Seller;
+package edu.fzu.house.gui.Buyer;
 
 import com.sorm.po.Hsuser;
 import edu.fzu.house.core.Manager.ManagerFunc;
-import edu.fzu.house.gui.Manager.ManagerFrame;
-import edu.fzu.house.gui.Manager.panel.SettingPanel;
-import edu.fzu.house.gui.Manager.panel.msgPanel;
-import edu.fzu.house.gui.Manager.panel.noticePanel;
-import edu.fzu.house.gui.Manager.panel.userPanel;
+import edu.fzu.house.gui.Buyer.panel.BuyerBrowse;
+import edu.fzu.house.gui.Buyer.panel.BuyerDealing;
+import edu.fzu.house.gui.Buyer.panel.BuyerSetting;
+
+import edu.fzu.house.gui.Seller.SellerFrame;
 import edu.fzu.house.gui.Seller.panel.SellerDealing;
-import edu.fzu.house.gui.Seller.panel.SellerSetting;
 import edu.fzu.house.gui.Seller.panel.sellerHouse;
 import edu.fzu.house.gui.Seller.panel.sellerNotice;
 import edu.fzu.house.gui.login.panel.RoundButtonPanel;
@@ -20,7 +19,7 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SellerFrame extends JFrame {
+public class BuyerFrame extends JFrame {
     private  JLayeredPane layer_panel = new JLayeredPane();
     public static Color bkcolor = new Color(133, 153, 190);
     /*显示信息*/
@@ -74,23 +73,23 @@ public class SellerFrame extends JFrame {
         /*个人信息按钮*/
         RoundButtonPanel setting = addButton(0, 180, "src/image/Icon/Manager/setting.png", (new Color(39, 46, 50)), Color.white, left, "个人信息");
         setting.button.addActionListener(e -> {
-            SellerSetting set = new SellerSetting(user);
+            BuyerSetting set = new BuyerSetting(user);
             set.setBounds(180, 50, 820, 950);
             layer_panel.add(set, new Integer(deg++));
         });
 
         /*房屋信息按钮*/
-        RoundButtonPanel user = addButton(0, 240, "src/image/Icon/Manager/user.png", (new Color(39, 46, 50)), Color.white, left, "房屋管理");
+        RoundButtonPanel user = addButton(0, 240, "src/image/Icon/Manager/user.png", (new Color(39, 46, 50)), Color.white, left, "房屋查询");
         user.button.addActionListener(e -> {
-            sellerHouse set = new sellerHouse(SellerFrame.user);
+            BuyerBrowse   set = new BuyerBrowse(BuyerFrame.user);
             set.setBounds(180, 50, 820, 950);
             layer_panel.add(set, new Integer(deg++));
         });
 
-        /*交易列表*/
+        /*订单查询*/
         RoundButtonPanel examine = addButton(0, 300, "src/image/Icon/Manager/msg.png", (new Color(39, 46, 50)), Color.white, left, "交易列表");
         examine.button.addActionListener(e -> {
-            SellerDealing set = new SellerDealing(SellerFrame.user);
+           BuyerDealing set = new BuyerDealing(BuyerFrame.user);
             set.setBounds(180, 50, 820, 950);
             layer_panel.add(set, new Integer(deg++));
         });
@@ -98,7 +97,7 @@ public class SellerFrame extends JFrame {
         /*消息*/
         RoundButtonPanel notice = addButton(0, 360, "src/image/Icon/Manager/notice.png", (new Color(39, 46, 50)), Color.white, left, "消息列表");
         notice.button.addActionListener(e -> {
-            sellerNotice set = new sellerNotice(SellerFrame.user);
+            sellerNotice set = new sellerNotice(BuyerFrame.user);
             set.setBounds(180, 50, 820, 950);
             layer_panel.add(set, new Integer(deg++));
         });
@@ -111,14 +110,14 @@ public class SellerFrame extends JFrame {
         InitLeft();
     }
 
-    public SellerFrame(String uname) {
+    public BuyerFrame(String uname) {
         setSize(1000, 800);
         FrameUtil.Setting(this, layer_panel, 900, bkcolor);
         /*初始化个人信息*/
         user = ManagerFunc.getHsuer(uname);
         /*初始化当前时间*/
         date = new SimpleDateFormat("yyyy-MM-dd-EEEE").format(new Date(System.currentTimeMillis()));
-        /*顶部区域*/
+        /*顶部区域*
 
         /*时间*/
         JLabel time = new JLabel(date);
@@ -149,7 +148,7 @@ public class SellerFrame extends JFrame {
         Init();
         this.add(layer_panel);
 
-        SellerSetting set = new SellerSetting(user);
+        BuyerSetting set = new BuyerSetting(user);
         set.setBounds(180, 50, 820, 950);
         layer_panel.add(set);
 
@@ -158,6 +157,6 @@ public class SellerFrame extends JFrame {
 
 
     public static void main(String[] args) {
-        SellerFrame mgf = new SellerFrame("admin5");
+        BuyerFrame mgf = new BuyerFrame("buy1");
     }
 }

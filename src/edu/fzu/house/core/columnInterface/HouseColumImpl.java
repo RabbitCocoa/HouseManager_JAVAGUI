@@ -12,6 +12,7 @@ import java.util.List;
 
 public class HouseColumImpl implements ColumnInterface {
 
+    @Override
     public HashMap<Integer, List<Object>> getMap(List<Object> list)
     {
         HashMap<Integer, List<Object>> map=new HashMap<>();

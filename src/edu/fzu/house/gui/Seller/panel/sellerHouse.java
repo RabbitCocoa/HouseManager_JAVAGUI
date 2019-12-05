@@ -2,6 +2,7 @@ package edu.fzu.house.gui.Seller.panel;
 
 import com.sorm.po.Comment;
 import com.sorm.po.House;
+import com.sorm.po.Hsuser;
 import edu.fzu.house.core.ActionInterfaces.ActionInterface;
 import edu.fzu.house.core.Manager.ManagerFunc;
 import edu.fzu.house.core.columnInterface.MsgColumnImpl;
@@ -37,7 +38,7 @@ public class sellerHouse extends modelPanel {
 
 
 
-    public sellerHouse() {
+    public sellerHouse(Hsuser user) {
         layer_panel.setBounds(0, 0, 820, 750);
 
         //添加新房屋信息
@@ -46,7 +47,7 @@ public class sellerHouse extends modelPanel {
         RoundButtonPanel button=new RoundButtonPanel(icon,140,40,"添加新房源",new Color(0x63A2FF),Color.white,12);
         button.setBounds(new Rectangle(600,10,200,40));
         button.button.addActionListener(e->{
-            new RegisterHouse(SellerFrame.user);
+            new RegisterHouse(user);
         });
 
         layer_panel.add(button);
@@ -67,8 +68,8 @@ public class sellerHouse extends modelPanel {
             @Override
             public void action(Object[] Keys) {
                 java.util.List<Object> key= (List<Object>) Keys[0];
-                sellerHouse m=new sellerHouse();
-                HousePanel panel=new HousePanel((String)key.get(0),m, ManagerFrame.user);
+                sellerHouse m=new sellerHouse(user);
+                HousePanel panel=new HousePanel((String)key.get(0),m, user);
                 layer_panel.add(panel,new Integer(300));
             }
         });

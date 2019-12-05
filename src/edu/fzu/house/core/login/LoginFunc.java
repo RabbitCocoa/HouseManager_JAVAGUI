@@ -121,6 +121,12 @@ public class LoginFunc {
                 suser.setUname(user.getUname());
                 suser.setLogintime(new Timestamp(System.currentTimeMillis()));
                 suser.setPhoto(IOUtil.readStrImage("src/image/bkimage/default.jpg&").get(0));
+                suser.setSurplus(0);
+                suser.setSemail("<未设置>");
+                suser.setSphone("<未设置>");
+                suser.setSsex("<未设置>");
+                suser.setSname("<未设置>");
+                suser.setSurplus(10000000);
                 count = MysqlQuery.query.insert(suser);
             }
             return count;

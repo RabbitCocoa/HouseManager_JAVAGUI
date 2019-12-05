@@ -11,7 +11,7 @@ import java.util.Random;
 public class MysqlQuery extends Query {
     public static MysqlQuery query = new MysqlQuery();
     @Override
-    public List<Object> queryPagenate(String sql, Class clazz,Object[] params,int pagenum,int size){
+    public List queryPagenate(String sql, Class clazz,Object[] params,int pagenum,int size){
         pagenum-=1;
         sql+=" limit ?,?";
         Object[] newparams=new Object[params.length+2];

@@ -92,9 +92,12 @@ public class ChalkPanel extends JPanel {
 
         String sql = "select sname from hsuser where uname=?";
 
-        if (title == null)
+        if (title == null) {
             this.title = (String) MysqlQuery.query.queryValue(sql, new Object[]{self});
-        else this.title = title;
+        }
+        else {
+            this.title = title;
+        }
 
         this.panel = panel;
         this.self = self;
@@ -117,8 +120,10 @@ public class ChalkPanel extends JPanel {
         rb.setBackground(Color.white);
         SendAction Send = new SendAction(this, icon);
         rb.button.setAction(Send);
+
         InputMap imap = send_area.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imap.put(KeyStroke.getKeyStroke("ENTER"), "send"); //第二个参数与ActionMap第一个参数对应
+
+        imap.put(KeyStroke.getKeyStroke("ENTER"), "send");
 
         ActionMap amap = send_area.getActionMap();
         amap.put("send", Send);

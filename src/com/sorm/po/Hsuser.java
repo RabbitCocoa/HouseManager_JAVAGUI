@@ -7,6 +7,7 @@ public class	Hsuser {
 	private java.sql.Timestamp logintime;
 	private String sphone;
 	private String uname;
+	private Integer surplus;
 	private String ssex;
 	private String scardid;
 	private String semail;
@@ -32,6 +33,13 @@ public class	Hsuser {
 	}
 	public	void   setUname(String uname){
 		this.uname=uname;
+	}
+
+	public	Integer getSurplus(){
+		return this.surplus;
+	}
+	public	void   setSurplus(Integer surplus){
+		this.surplus=surplus;
 	}
 
 	public	String getSsex(){

@@ -5,7 +5,11 @@ import java.util.*;
 
 public class	Orderform {
 	private String hid;
+	private java.sql.Timestamp createtime;
 	private Integer hprice;
+	private Integer ostate;
+	private java.sql.Timestamp endtime;
+	private String photo;
 	private String oid;
 	private String bid;
 	private String hname;
@@ -18,11 +22,39 @@ public class	Orderform {
 		this.hid=hid;
 	}
 
+	public	java.sql.Timestamp getCreatetime(){
+		return this.createtime;
+	}
+	public	void   setCreatetime(java.sql.Timestamp createtime){
+		this.createtime=createtime;
+	}
+
 	public	Integer getHprice(){
 		return this.hprice;
 	}
 	public	void   setHprice(Integer hprice){
 		this.hprice=hprice;
+	}
+
+	public	Integer getOstate(){
+		return this.ostate;
+	}
+	public	void   setOstate(Integer ostate){
+		this.ostate=ostate;
+	}
+
+	public	java.sql.Timestamp getEndtime(){
+		return this.endtime;
+	}
+	public	void   setEndtime(java.sql.Timestamp endtime){
+		this.endtime=endtime;
+	}
+
+	public	String getPhoto(){
+		return this.photo;
+	}
+	public	void   setPhoto(String photo){
+		this.photo=photo;
 	}
 
 	public	String getOid(){

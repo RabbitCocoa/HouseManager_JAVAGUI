@@ -215,6 +215,7 @@ public class DataTablePanel {
             });
             panel.add(label);
         }
+
         //加空列
         for(int i=column;i<column+accdent.size();i++)
         {
@@ -388,19 +389,6 @@ public class DataTablePanel {
 
         text.addActionListener(e->{
             page=Integer.parseInt(text.getText());
-            /*
-            List<Integer>  imageID=new ArrayList<>();
-            imageID.add(new Integer(3));
-            JPanel msgPanel=generateMsg();
-            msgPanel.setBounds(positionsize);
-
-            comment.add(msgPanel,new Integer(num++));
-
-            //转页
-            JPanel page_panel= generatePage();
-            page_panel.setBounds(10,710,600,40);
-            page_panel.setBackground(pagecolor);
-            comment.add(page_panel,new Integer(num2++));*/
             generateTable();
         });
         return text;

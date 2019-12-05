@@ -1,21 +1,22 @@
-package edu.fzu.house.gui.Seller.panel;
+package edu.fzu.house.gui.Buyer.panel;
 
+import com.sorm.po.Comment;
 import com.sorm.po.House;
 import com.sorm.po.Hsuser;
+import com.sorm.po.Orderform;
 import com.sorm.util.ReflectionUtil;
 import edu.fzu.house.core.ActionInterfaces.ActionInterface;
 import edu.fzu.house.core.Manager.ManagerFunc;
-import edu.fzu.house.core.columnInterface.HouseColumImpl;
+import edu.fzu.house.core.columnInterface.BuyerCommentColumImpl;
 import edu.fzu.house.core.columnInterface.SellerHouseColumImpl;
 import edu.fzu.house.core.confirmInterface.*;
 import edu.fzu.house.core.login.MysqlQuery;
-
-import edu.fzu.house.gui.Manager.ManagerFrame;
+import edu.fzu.house.gui.Buyer.BuyerFrame;
 import edu.fzu.house.gui.Manager.panel.HousePanel;
 import edu.fzu.house.gui.Manager.panel.modelPanel;
-import edu.fzu.house.gui.Manager.panel.msgPanel;
 import edu.fzu.house.gui.Manager.table.DataTablePanel;
 import edu.fzu.house.gui.Seller.SellerFrame;
+import edu.fzu.house.gui.Seller.panel.SellerSetting;
 import edu.fzu.house.gui.login.panel.TextButton;
 import edu.fzu.house.util.IOUtil;
 import edu.fzu.house.util.ImageUtil;
@@ -28,11 +29,11 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.util.List;
 
-public class SellerSetting extends modelPanel {
-    public  String Paramsql = "select hid,hname,htype,photo,addressid,hprice,hstate from house where uname=? order by hprice";
-
+public class BuyerSetting extends modelPanel {
+    public  String Paramsql = "select oid,hid,hname,photo,hprice,ostate from orderform " +
+            " where bid=?  " +
+            "order by createtime";
     public JLayeredPane layer_panel=new JLayeredPane();
     private Hsuser user;
     public static Color color1=new Color(0xC9DEFB); //单行文本背景色
@@ -74,8 +75,8 @@ public class SellerSetting extends modelPanel {
                 MysqlQuery.query.update(user, new String[]{fieldName});
                 textField.setEditable(false);//文本框不可编辑
                 if (fieldName.equals("sname")) {
-                    SellerFrame.id_label.setText(textField.getText());
-                    SellerFrame.name_label.setText(textField.getText());
+                    BuyerFrame.id_label.setText(textField.getText());
+                    BuyerFrame.name_label.setText(textField.getText());
                 }
             }
         });
@@ -102,7 +103,7 @@ public class SellerSetting extends modelPanel {
         return panel;
     }
 
-    public SellerSetting(Hsuser user) {
+    public BuyerSetting(Hsuser user) {
 
         super();
         this.user=user;
@@ -182,11 +183,11 @@ public class SellerSetting extends modelPanel {
                 if (count == 1) {
                     ImageIcon photo1 = new ImageIcon(user.getPhoto());
                     photo1 = ImageUtil.CutCircleImage(photo1, 40);
-                    SellerFrame.photo_label.setIcon(photo1);
+                    BuyerFrame.photo_label.setIcon(photo1);
 
                     ImageIcon photo2 = new ImageIcon(user.getPhoto());
                     photo2 = ImageUtil.CutCircleImage(photo2, 100);
-                    SellerFrame.photo_label2.setIcon(photo2);
+                    BuyerFrame.photo_label2.setIcon(photo2);
 
                     ImageIcon photo3 = new ImageIcon(user.getPhoto());
                     photo3 = ImageUtil.CutCircleImage(photo3, 100);
@@ -219,35 +220,29 @@ public class SellerSetting extends modelPanel {
         layer_panel.add(photo,new Integer(100));
 
 
+
         //*消息列表*//*
-        JLabel msg2 = new JLabel("拥有房源");
+        JLabel msg2 = new JLabel("订单列表");
         msg2.setFont(new Font(Font.SERIF, Font.BOLD, 12));
         msg2.setBounds(40, 260, 80, 80);
-        layer_panel. add(msg2,new Integer(100));
+        layer_panel.add(msg2,new Integer(100));
 
 
         //生成数据库表格
 
-        DataTablePanel datetable=new DataTablePanel(Paramsql, House.class ,new Object[]{user.getUname()},
-                new String[]{"序列号","房名","房型","照片","地址","售价","状态"},7, new SellerHouseColumImpl(),
-                new Rectangle(40,320,650,400 ),layer_panel);
-        datetable.addMap("查看", new ActionInterface() {
-            @Override
-            public void action(Object[] Keys) {
-                java.util.List<Object> key= (List<Object>) Keys[0];
-                SellerSetting m=new SellerSetting(user);
-                HousePanel panel=new HousePanel((String)key.get(0),m, user);
-                layer_panel.add(panel,new Integer(300));
-            }
-        });
+        DataTablePanel datetable=new DataTablePanel(Paramsql, Orderform.class ,new Object[]{user.getUname()},
+                new String[]{"订单号", "房源号", "房名","照片","价格","当前状态"},6, new BuyerCommentColumImpl(),
+                new Rectangle(10,320,800,400 ),layer_panel);
+
+
         datetable.setColor1(color1);
         datetable.setColor2(color2);
         datetable.setPagecolor(pagecolor);
 
         datetable.setSize(8);
+
         datetable.generateTable();
-//        JPanel msgPanel=datetable.generateMsg();
-//        layer_panel.add(msgPanel,new Integer(100));
+
 
 
         //转页
@@ -255,7 +250,5 @@ public class SellerSetting extends modelPanel {
         add(layer_panel);
 
     }
-
-
 
 }

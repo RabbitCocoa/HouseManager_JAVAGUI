@@ -16,7 +16,7 @@ public class SetterFunc {
         house.setHarea(harea);
         house.setHstate(0);
         house.setHtype(htype);
-        house.setHid(ManagerFunc.generateSerialNum(10));
+        house.setHid(ManagerFunc.generateSerialNum(8));
         house.setPhoto(photo);
         house.setHname(hname);
         house.setAddressid(addressid);
